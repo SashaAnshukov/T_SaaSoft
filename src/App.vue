@@ -1,11 +1,11 @@
 <template>
   <div class="list">
-    <div className="add">
+    <div class="add">
       <h1>Учётные записи</h1>
       <button
         type ="submit"
         aria-label="addButton"
-        className="button buttonAdd"
+        class="button buttonAdd"
         @click="createUser"
       >
       </button>
@@ -18,14 +18,15 @@
     </div>
     <ul>
       <li class="card" v-for="(user, index) in usersStore.users" :key="index">
-        <input
-          class="inputCard"
+        <textarea
+          class="labelCard"
           maxlength="50"
           id="label"
           type="text"
           v-model="user.label"
           @blur="usersStore.updateUser(index, { label: user.label })"
-        />
+        >
+        </textarea>
 
         <div class="select-wrapper">
           <select
@@ -131,11 +132,11 @@
     color: #fff;
     margin: 12px 41px;
     gap: 10px;
+  }
 
-    p {
-      max-width: 210px;
-      width: 100%;
-    }
+  .nameFields p {
+    max-width: 210px;
+    width: 100%;
   }
 
   h1 {
@@ -143,12 +144,14 @@
   }
 
   h1,
-  h2 {
+  h2,
+  p {
+    font-family: 'Roboto', sans-serif;
     font-weight: normal;
   }
 
-  a {
-    color: #42b983;
+  p {
+    font-size: 18px;
   }
 
   ul {
@@ -166,8 +169,27 @@
     max-width: 210px;
     width: 100%;
     max-height: 32px;
+    box-sizing: border-box;
     outline: none;
     background-color: #90ee90;;
+    font-family: 'Roboto', sans-serif;
+    color: #ffff;
+    cursor: default;
+  }
+
+  .labelCard {
+    padding: 7px 16px;
+    border: 2px solid rgb(44, 44, 44);
+    border-radius: 10px;
+    max-width: 210px;
+    width: 100%;
+    height: 102px;
+    outline: none;
+    overflow: hidden;
+    box-sizing: border-box;
+    resize: vertical;
+    background-color: #90ee90;
+    font-family: 'Roboto', sans-serif;
     color: #ffff;
     cursor: default;
   }
@@ -192,12 +214,12 @@
     content: "";
 
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: 10px;
+    right: 16px;
     display: inline-block;
     padding: 2px;
-    width: 4px;
-    height: 4px;
+    width: 2px;
+    height: 2px;
 
     border: solid #848388;
     border-width: 0 2px 2px 0;
@@ -208,12 +230,14 @@
   select {
     appearance: none;
     width: 200px;
-    padding: 4px;
+    padding: 4px 16px;
     border-color: #aaa;
     border-radius: 10px;
+    color: #ffff;
     background: #90ee90;
     outline: none;
     cursor: pointer;
+    font-family: 'Roboto', sans-serif;
   }
 
   .card {

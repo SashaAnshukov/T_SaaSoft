@@ -32,8 +32,9 @@ export const useUsersStore = defineStore('users', {
         }))
       }
     },
-    transformLabel() {
-      const usersForStorage = this.users.map(user => ({
+    setUsers() {
+      const validUsers = this.users.filter(user => this.isUserValid(user));
+      const usersForStorage = validUsers.map(user => ({
         ...user,
         label: user.label
           .split(/[\s;]+/)
@@ -51,11 +52,11 @@ export const useUsersStore = defineStore('users', {
         password:"",
         showPasswordField: true,
       });
-      this.transformLabel()
+      this.setUsers()
     },
     removeUser(index: number) {
       this.users.splice(index, 1);
-      this.transformLabel()
+      this.setUsers()
     },
     updateUser(index: number, updatedUser: Partial<User>) {
       const user = this.users[index]
@@ -68,7 +69,7 @@ export const useUsersStore = defineStore('users', {
         showPasswordField: user.type === "LDAP" ? false : true,
       }
       if (this.isUserValid(this.users[index])) {
-        this.transformLabel();
+        this.setUsers();
       }
     },
     isUserValid(user: User): boolean {
